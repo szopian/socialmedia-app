@@ -1,9 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const {
-  UserInputError,
-  buildSchemaFromTypeDefinitions,
-} = require("apollo-server");
+const { UserInputError } = require("apollo-server");
 
 const {
   validateRegisterInput,
@@ -28,6 +25,11 @@ module.exports = {
   Mutation: {
     async login(_, { username, password }) {
       const { errors, valid } = validateLoginInput(username, password);
+
+      if (!valid) {
+        throw new UserInputError("Errors", { errors });
+      }
+
       const user = await User.findOne({ username });
 
       if (!user) {
