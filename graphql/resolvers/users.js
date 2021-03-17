@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../../config");
 const User = require("../../models/User");
 
-module.export = {
+module.exports = {
   Mutation: {
     async register(
       _,
-      { registerInput: { username, email, password, confirmPassword } },
+      { registerInput: { username, password, confirmPassword, email } },
       context,
       info
     ) {
