@@ -1,9 +1,14 @@
 import React from "react";
 import App from "./App";
-import ApolloClient from "apollo-client";
-import { InMemoryCashe } from "apollo-cashe-inmemory";
-import { createHttp } from "apollo-link-http";
-import { ApolloProvider } from "@apollo/react-hooks";
+// import ApolloClient from "apollo-client";
+// import { InMemoryCache } from "apollo-cache-inmemory";
+// import { createHttpLink } from "apollo-link";
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
 
 const httpLink = createHttpLink({
   url: "http://localhost:5000",
@@ -11,7 +16,7 @@ const httpLink = createHttpLink({
 
 const client = new ApolloClient({
   link: httpLink,
-  cashe: new InMemoryCashe(),
+  cache: new InMemoryCache(),
 });
 
 export default (
