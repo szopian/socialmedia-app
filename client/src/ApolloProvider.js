@@ -8,14 +8,24 @@ import {
   ApolloProvider,
   InMemoryCache,
   createHttpLink,
+  setContext,
 } from "@apollo/client";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:5000/graphql",
 });
 
+const authLink = setContext(() => {
+  const token = localStorage.getItem("jwtToken");
+  return {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

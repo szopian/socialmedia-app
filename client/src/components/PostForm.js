@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
 
 import { useForm } from "../util/hooks";
-// import { FETCH_POSTS_QUERY } from "../util/graphql";
+import { FETCH_POSTS_QUERY } from "../util/graphql";
 
 function PostForm() {
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
@@ -15,8 +15,11 @@ function PostForm() {
     CREATE_POST_MUTATION,
     {
       variables: values,
-      update(_, result) {
-        console.log(result);
+      update(proxy, result) {
+        const data = proxy.readQuery({
+          query: FETCH_POSTS_QUERY,
+        });
+
         values.body = "";
       },
     }
@@ -35,6 +38,8 @@ function PostForm() {
           name="body"
           onChange={onChange}
           value={values.body}
+          fluid
+          style={{ marginBottom: 5 }}
         />
         <Button type="submit" color="teal">
           Submit
