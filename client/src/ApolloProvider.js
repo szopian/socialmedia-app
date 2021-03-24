@@ -3,12 +3,12 @@ import App from "./App";
 // import ApolloClient from "apollo-client";
 // import { InMemoryCache } from "apollo-cache-inmemory";
 // import { createHttpLink } from "apollo-link";
+import { setContext } from "apollo-link-context";
 import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
   createHttpLink,
-  setContext,
 } from "@apollo/client";
 
 const httpLink = createHttpLink({

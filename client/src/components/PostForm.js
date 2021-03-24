@@ -11,26 +11,24 @@ function PostForm() {
     body: "",
   });
 
-  const [createPost /*, eslint-disable-next-line { error }*/] = useMutation(
-    CREATE_POST_MUTATION,
-    {
-      variables: values,
-      update(proxy, result) {
-        const data = proxy.readQuery({
-          query: FETCH_POSTS_QUERY,
-        });
-
-        values.body = "";
-      },
-    }
-  );
+  const [createPost /*, { error }*/] = useMutation(CREATE_POST_MUTATION, {
+    variables: values,
+    update(proxy, result) {
+      const data = proxy.readQuery({
+        query: FETCH_POSTS_QUERY,
+      });
+      data.getPosts = [result.data.getPost, ...data.getPosts];
+      proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+      values.body = "";
+    },
+  });
 
   function createPostCallback() {
     createPost();
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit}>
       <h2>Create a post:</h2>
       <Form.Field>
         <Form.Input
@@ -45,7 +43,7 @@ function PostForm() {
           Submit
         </Button>
       </Form.Field>
-    </form>
+    </Form>
   );
 }
 
