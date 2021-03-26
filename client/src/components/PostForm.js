@@ -33,7 +33,7 @@ function PostForm() {
         <h2>Create a post:</h2>
         <Form.Field>
           <Form.Input
-            placeholder="Hi World!"
+            placeholder="SMAR!"
             name="body"
             onChange={onChange}
             value={values.body}
