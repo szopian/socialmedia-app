@@ -38,7 +38,6 @@ function LikeButton({ user, post: { id, likeCount, likes } }) {
   return (
     <Button as="div" labelPosition="right" onClick={likePost}>
       <MyPopup content={liked ? "Unlike" : "Like"}>{likeButton}</MyPopup>
-      {likeButton}
       <Label basic color="teal" pointing="left">
         {likeCount}
       </Label>
