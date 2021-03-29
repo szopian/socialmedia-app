@@ -24,9 +24,7 @@ function SinglePost(props) {
 
   const [comment, setComment] = useState("");
 
-  const {
-    data: { getPost },
-  } = useQuery(FETCH_POST_QUERY, {
+  const { data } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId,
     },
@@ -47,10 +45,8 @@ function SinglePost(props) {
     props.history.push("/");
   }
 
-  let postMarkup;
-  if (!getPost) {
-    postMarkup = <p>Loading post..</p>;
-  } else {
+  let postMarkup = <p>Loading post..</p>;
+  if (data !== undefined) {
     const {
       id,
       body,
@@ -60,7 +56,7 @@ function SinglePost(props) {
       likes,
       likeCount,
       commentCount,
-    } = getPost;
+    } = data.getPost;
 
     postMarkup = (
       <Grid>
